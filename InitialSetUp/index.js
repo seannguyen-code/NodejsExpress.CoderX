@@ -5,6 +5,14 @@ const port = 3000;
 app.set("view engine", "pug");
 app.set("views", "./views");
 
+var users = [
+  { id: 1, name: "Yasuo" },
+  { id: 2, name: "Luffy" },
+  { id: 3, name: "Zoro" },
+  { id: 4, name: "Naruto" },
+  { id: 5, name: "Sasuke" }
+];
+
 app.get("/", (req, res) => {
   res.render("index.pug", {
     name: "H.Sơn"
@@ -13,10 +21,18 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
   res.render("users/index.pug", {
-    users: [
-      { id: 1, name: "Yasuo" },
-      { id: 2, name: "Luffy" }
-    ]
+    users: users
+  });
+});
+
+app.get("/users/search", (req, res) => {
+  var q = req.query.q;
+  var matchedUsers = users.filter(user => {
+    return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  });
+
+  res.render("users/index.pug", {
+    users: matchedUsers
   });
 });
 

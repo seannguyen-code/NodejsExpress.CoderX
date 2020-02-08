@@ -1,4 +1,14 @@
 h1 Danh sách binh lính
+
+form(action="/users/search", method="GET")
+  input(type="text", name="q" id="search_box")
+  button Search
 ul
   each user in users
-     li= user.name
+    li= user.name
+
+script. 
+  var searchBox = document.getElementById('search_box')
+  searchBox.value = sessionStorage.getItem('draft')
+  searchBox.addEventListener('change', function() {sessionStorage.setItem('draft', searchBox.value);})
+
