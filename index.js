@@ -1,21 +1,23 @@
-const express = require("express");
+var express = require("express");
 var bodyParser = require("body-parser");
-const app = express();
-const port = 3000;
+var shortid = require("shortid");
+var app = express();
+var low = require("lowdb");
+var FileSync = require("lowdb/adapters/FileSync");
+var adapter = new FileSync("db.json");
+
+db = low(adapter);
+
+// Set some defaults
+db.defaults({ users: [] }).write();
+
+var port = 3000;
 
 app.set("view engine", "pug");
 app.set("views", "./views");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-var users = [
-  { id: 1, name: "Yasuo" },
-  { id: 2, name: "Luffy" },
-  { id: 3, name: "Zoro" },
-  { id: 4, name: "Naruto" },
-  { id: 5, name: "Sasuke" }
-];
 
 app.get("/", (req, res) => {
   res.render("index.pug", {
@@ -25,7 +27,7 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
   res.render("users/index.pug", {
-    users: users
+    users: db.get("users").value()
   });
 });
 
@@ -48,8 +50,24 @@ app.get("/users/create", (req, res) => {
   res.render("users/create.pug");
 });
 
+app.get("/users/:id", (req, res) => {
+  var id = req.params.id;
+
+  var user = db
+    .get("users")
+    .find({ id: id })
+    .value();
+
+  res.render("users/view", {
+    user: user
+  });
+});
+
 app.post("/users/create", (req, res) => {
-  users.push(req.body);
+  req.body.id = shortid.generate();
+  db.get("users")
+    .push(req.body)
+    .write();
   res.redirect("/users");
 });
 

@@ -7,7 +7,10 @@ form(action="/users/search", method="GET")
   button Search
 ul
   each user in users
-    li= user.name
+    li
+      span= user.name
+      span &nbsp;
+      a(href="/users/" + user.id) View
 
 script. 
   var searchBox = document.getElementById('search_box')
