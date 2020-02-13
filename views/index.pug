@@ -1,2 +1,10 @@
-h1 Báo cáo sếp #{name}. Đã nhận được lệnh!
-a(href="/users") Danh sách quân nhân
+extends ./layouts/common.pug
+
+block content
+    nav(class ="navbar navbar-light bg-light")
+        a(class="navbar-brand", href="#") 
+            img(src="/images/calcifer.jpg", width="30", height="30") 
+        a(class="nav-link mr-auto", href="/users") Users
+    h3 Báo cáo sếp #{name}. Đã nhận được lệnh!
+
+
