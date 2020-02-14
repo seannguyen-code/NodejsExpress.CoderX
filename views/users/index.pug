@@ -1,19 +1,27 @@
 extends ../layouts/common.pug
 
 block content
-  h1 Danh sách binh lính
+  h1 
+    span.mr-3 Danh sách binh lính
+    a.btn.btn-primary.mb-2(href="/users/create") New
 
-  a(href="/users/create") Add new user
+  .d-flex.align-items-center
+    form.ml-auto(action="/users/search", method="GET", class="d-flex")
+      input(type="text", name="q", id="search_box", class="form-control")
+      button(class="btn btn-primary ml-2") Search
 
-  form(action="/users/search", method="GET", class="d-flex")
-    input(type="text", name="q" id="search_box", class="form-control")
-    button(class="btn btn-primary ml-2") Search
-  ul
+  table.table
+    tr
+      th Name
+      th Phone
+      th Actions
+
     each user in users
-      li
-        span= user.name
-        span &nbsp;
-        a(href="/users/" + user.id) View
+      tr
+        td= user.name
+        td= user.phone
+        td
+           a.btn.btn-light(href="/users/" + user.id) View
 
   script. 
     var searchBox = document.getElementById('search_box')
