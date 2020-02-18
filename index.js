@@ -3,6 +3,9 @@ var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 
 var userRoutes = require("./routes/user.route");
+var authRoute = require("./routes/auth.route");
+
+var authMiddleware = require("./middlewares/auth.middleware.js");
 
 var port = 3000;
 
@@ -23,7 +26,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/users", userRoutes);
+app.use("/users", authMiddleware.requireAuth, userRoutes);
+app.use("/auth", authRoute);
 
 app.listen(port, () => {
   console.log(`Báo cáo sếp. Server đang được phát trên ${port}!`);
