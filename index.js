@@ -1,3 +1,5 @@
+require("dotenv").config();
+console.log(process.env.SESSION_SECRET);
 var express = require("express");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
@@ -15,7 +17,7 @@ app.set("views", "./views");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser("randomchuoi123321"));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(express.static("public"));
 
