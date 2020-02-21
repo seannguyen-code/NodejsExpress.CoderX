@@ -1,11 +1,12 @@
 require("dotenv").config();
-console.log(process.env.SESSION_SECRET);
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 
 var userRoutes = require("./routes/user.route");
 var authRoute = require("./routes/auth.route");
+var productRoute = require("./routes/product.route");
 
 var authMiddleware = require("./middlewares/auth.middleware.js");
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", authMiddleware.requireAuth, userRoutes);
 app.use("/auth", authRoute);
+app.use("/products", productRoute);
 
 app.listen(port, () => {
   console.log(`Báo cáo sếp. Server đang được phát trên ${port}!`);
