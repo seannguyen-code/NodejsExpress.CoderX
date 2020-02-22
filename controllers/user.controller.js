@@ -41,6 +41,12 @@ module.exports.get = (req, res) => {
 
 module.exports.postCreate = (req, res) => {
   req.body.id = shortid.generate();
+  req.body.avatar = req.file.path
+    .split("\\")
+    .slice(1)
+    .join("\\")
+    .replace("\\", "/");
+
   db.get("users")
     .push(req.body)
     .write();

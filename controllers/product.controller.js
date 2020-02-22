@@ -9,6 +9,8 @@ module.exports.index = (req, res) => {
 
   var drop = (page - 1) * perPage;
 
+  res.locals.page = page;
+
   res.render("products/index", {
     //  products: db.get("products").value().slice(start, end)
     products: db
