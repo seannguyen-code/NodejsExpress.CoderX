@@ -736,5 +736,17 @@
       "description": "accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla",
       "price": "$1.01"
     }
+  ],
+  "sessions": [
+    {
+      "id": "_MRnb0KD",
+      "cart": {
+        "0675ae2f-510f-40eb-a0ee-63d33b77bc3e": 4,
+        "07a90803-a0d5-4c3d-a78d-b8490efa54ac": 1,
+        "1e0b4b04-e4d0-4438-af31-c20eec5efba2": 3,
+        "3a63f533-a51c-4ec5-85b3-93f688cb9e4c": 1,
+        "57025e55-a626-45b3-bd25-11c444706a5c": 1
+      }
+    }
   ]
 }
