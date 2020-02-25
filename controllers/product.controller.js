@@ -1,22 +1,29 @@
-var db = require("../db");
+// var db = require("../db");
 
-module.exports.index = (req, res) => {
-  var page = parseInt(req.query.page) || 1;
-  var perPage = 8;
+var Product = require("../models/product.model");
 
-  var start = (page - 1) * perPage;
-  var end = page * perPage;
+module.exports.index = async (req, res) => {
+  // var page = parseInt(req.query.page) || 1;
+  // var perPage = 8;
 
-  var drop = (page - 1) * perPage;
+  // var start = (page - 1) * perPage;
+  // var end = page * perPage;
 
-  res.locals.page = page;
+  // var drop = (page - 1) * perPage;
 
+  // res.locals.page = page;
+
+  // res.render("products/index", {
+  //   //  products: db.get("products").value().slice(start, end)
+  //   products: db
+  //     .get("products")
+  //     .drop(drop)
+  //     .take(perPage)
+  //     .value()
+  // });
+
+  var products = await Product.find();
   res.render("products/index", {
-    //  products: db.get("products").value().slice(start, end)
-    products: db
-      .get("products")
-      .drop(drop)
-      .take(perPage)
-      .value()
+    products: products
   });
 };
